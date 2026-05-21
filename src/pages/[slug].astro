@@ -22,7 +22,7 @@ const { Content } = await render(vertical);
         <p class="hero-eyebrow">Chicago Label Printing</p>
         <h1>{vertical.data.headline}</h1>
         <p class="hero-sub">{vertical.data.subheadline}</p>
-        <a href="#quote" class="btn-primary">{vertical.data.cta}</a>
+        <a href="#configurator" class="btn-primary">Start Designing</a>
       </div>
     </section>
 
@@ -68,7 +68,7 @@ const { Content } = await render(vertical);
       </div>
     </section>
 
-    <section class="configurator">
+    <section class="configurator" id="configurator">
       <h2>Design Your Labels</h2>
       <p>Use our configurator to see pricing instantly.</p>
       <div class="configurator-embed">
@@ -86,11 +86,11 @@ const { Content } = await render(vertical);
     <section class="quote" id="quote">
       <div class="quote-inner">
         <div class="quote-text">
-          <h2>{vertical.data.cta}</h2>
-          <p>Tell us about your {vertical.data.headline.toLowerCase()} project. Free quote within 24 hours.</p>
+          <h2>Prefer to Talk?</h2>
+          <p>Not ready for the configurator? Drop us a message and we'll get back to you within 24 hours.</p>
         </div>
         <div class="quote-form">
-          <LeadForm vertical={vertical.id} cta={vertical.data.cta} />
+          <LeadForm vertical={vertical.id} cta="Send Message" />
         </div>
       </div>
     </section>
@@ -315,6 +315,19 @@ const { Content } = await render(vertical);
     .quote-inner {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    .configurator {
+      padding: 3rem 0;
+    }
+
+    .configurator h2,
+    .configurator > p {
+      padding: 0 1rem;
+    }
+
+    .configurator-embed {
+      max-width: 100%;
     }
   }
 </style>
