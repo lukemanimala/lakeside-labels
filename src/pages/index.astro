@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { getCollection } from 'astro:content';
+
+const verticals = await getCollection('verticals');
+---
+
+<BaseLayout
+  title="Custom Labels Chicago"
+  description="Custom roll labels for Chicago makers. Waterproof, durable, fast turnaround. Candles, hot sauce, beer, soap, and more. Get a quote today."
+>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Custom Labels.<br/>Chicago Made.</h1>
+        <p class="hero-sub">Roll labels for makers who ship. Waterproof, durable, fast.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">Get a Quote</a>
+          <a href="#verticals" class="btn-secondary">See Our Labels</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-bar">
+      <div class="trust-items">
+        <div class="trust-item">
+          <strong>No Minimums</strong>
+          <span>Start at 50 labels</span>
+        </div>
+        <div class="trust-item">
+          <strong>5-Day Turnaround</strong>
+          <span>Rush available</span>
+        </div>
+        <div class="trust-item">
+          <strong>Free Proofs</strong>
+          <span>Before you commit</span>
+        </div>
+        <div class="trust-item">
+          <strong>Chicago Based</strong>
+          <span>Local pickup available</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="verticals" id="verticals">
+      <h2>Labels for Every Maker</h2>
+      <div class="vertical-grid">
+        {verticals.map((v) => (
+          <a href={`/${v.slug}`} class="vertical-card">
+            <h3>{v.data.headline}</h3>
+            <p>{v.data.subheadline}</p>
+            <span class="vertical-link">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>Built for Products That Move</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>Waterproof</h3>
+          <p>Ice buckets, condensation, spills—your labels stay put and look sharp.</p>
+        </div>
+        <div class="feature">
+          <h3>Oil Resistant</h3>
+          <p>Essential oils, food oils, greasy hands. We've got materials that handle it.</p>
+        </div>
+        <div class="feature">
+          <h3>Vibrant Color</h3>
+          <p>Full CMYK printing with options for white ink, metallics, and spot UV.</p>
+        </div>
+        <div class="feature">
+          <h3>Any Shape</h3>
+          <p>Circles, rectangles, custom dies. If you can design it, we can cut it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-inner">
+        <div class="contact-text">
+          <h2>Let's Make Your Labels</h2>
+          <p>Tell us about your project. We'll get back to you within 24 hours with a quote.</p>
+        </div>
+        <div class="contact-form">
+          <LeadForm cta="Get My Quote" />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    padding-top: 60px;
+  }
+
+  .hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%);
+    color: var(--color-white);
+    padding: 4rem 2rem;
+  }
+
+  .hero-content {
+    max-width: 700px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 1rem 2rem;
+    background: var(--color-lake);
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-lake-light);
+  }
+
+  .btn-secondary {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 6px;
+    transition: border-color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.6);
+  }
+
+  .trust-bar {
+    background: var(--color-sand);
+    padding: 2rem;
+  }
+
+  .trust-items {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .trust-item strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--color-navy);
+    margin-bottom: 0.25rem;
+  }
+
+  .trust-item span {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .verticals, .features {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .verticals h2, .features h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--color-navy);
+    margin-bottom: 3rem;
+  }
+
+  .vertical-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .vertical-card {
+    padding: 2rem;
+    background: var(--color-white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .vertical-card:hover {
+    border-color: var(--color-lake);
+    transform: translateY(-2px);
+  }
+
+  .vertical-card h3 {
+    font-size: 1.25rem;
+    color: var(--color-navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .vertical-card p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+
+  .vertical-link {
+    color: var(--color-lake);
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .feature h3 {
+    font-size: 1.125rem;
+    color: var(--color-navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .contact {
+    background: var(--color-sand);
+    padding: 5rem 2rem;
+  }
+
+  .contact-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-text h2 {
+    font-size: 2rem;
+    color: var(--color-navy);
+    margin-bottom: 1rem;
+  }
+
+  .contact-text p {
+    color: var(--color-text-muted);
+    font-size: 1.0625rem;
+  }
+
+  .contact-form {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  @media (max-width: 768px) {
+    .trust-items {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trust-items {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
