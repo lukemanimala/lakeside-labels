@@ -1,18 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LeadForm from '../components/LeadForm.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const verticals = await getCollection('verticals');
   return verticals.map((vertical) => ({
-    params: { slug: vertical.slug },
+    params: { slug: vertical.id },
     props: { vertical },
   }));
 }
 
 const { vertical } = Astro.props;
-const { Content } = await vertical.render();
+const { Content } = await render(vertical);
 ---
 
 <BaseLayout title={vertical.data.title} description={vertical.data.description}>
@@ -87,7 +87,7 @@ const { Content } = await vertical.render();
           <p>Tell us about your {vertical.data.headline.toLowerCase()} project. Free quote within 24 hours.</p>
         </div>
         <div class="quote-form">
-          <LeadForm vertical={vertical.slug} cta={vertical.data.cta} />
+          <LeadForm vertical={vertical.id} cta={vertical.data.cta} />
         </div>
       </div>
     </section>

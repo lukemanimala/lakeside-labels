@@ -47,7 +47,7 @@ const verticals = await getCollection('verticals');
       <h2>Labels for Every Maker</h2>
       <div class="vertical-grid">
         {verticals.map((v) => (
-          <a href={`/${v.slug}`} class="vertical-card">
+          <a href={`/${v.id}`} class="vertical-card">
             <h3>{v.data.headline}</h3>
             <p>{v.data.subheadline}</p>
             <span class="vertical-link">Learn more →</span>
