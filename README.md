@@ -113,9 +113,41 @@ Page auto-generates at `/{filename}` (e.g., `coffee-labels.md` → `/coffee-labe
 ## Environment Variables (Vercel)
 
 ```
-AIRTABLE_PAT=your_personal_access_token
-AIRTABLE_BASE_ID=appXXXXXXXXXXXXXX
-AIRTABLE_TABLE_ID=tblXXXXXXXXXXXXXX
+SUPABASE_URL=https://wcxzexkdzanhhlqjbfig.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+```
+
+## Supabase Setup
+
+Uses same Supabase project as 2Fulfill configurator. Run this SQL to create leads table:
+
+```sql
+-- Leads table for Lakeside Labels
+CREATE TABLE IF NOT EXISTS leads (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT,
+  quantity TEXT,
+  details TEXT,
+  vertical TEXT DEFAULT 'general',
+  source TEXT DEFAULT '/',
+  status TEXT DEFAULT 'new',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Index for status queries
+CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status);
+CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at DESC);
+
+-- RLS
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow anonymous inserts" ON leads
+    FOR INSERT TO anon WITH CHECK (true);
+
+CREATE POLICY "Service role full access" ON leads
+    FOR ALL TO service_role USING (true) WITH CHECK (true);
 ```
 
 ## Keyword Research (to inform new verticals)
@@ -131,8 +163,11 @@ Look for: search volume, seasonality, regional interest (Chicago).
 ## TODO
 
 - [ ] Connect to Vercel
-- [ ] Add Airtable env vars (or create new table for Lakeside leads)
+- [ ] Add Supabase env vars
+- [ ] Run leads table SQL in Supabase
+- [ ] Create "lakeside" client in Supabase (for branded configurator)
 - [ ] Connect lakesidelabels.com domain
-- [ ] Embed roll label configurator in vertical pages
+- [x] Embed roll label configurator in vertical pages
+- [x] Add Chicago lakefront hero image
 - [ ] Add more verticals based on keyword research
 - [ ] Run ads to high-intent pages, measure conversion
