@@ -242,8 +242,13 @@ const { Content } = await render(vertical);
 
   .configurator {
     background: var(--color-sand);
-    padding: 4rem 2rem;
+    padding: 4rem 0;
     text-align: center;
+  }
+
+  .configurator h2,
+  .configurator > p {
+    padding: 0 2rem;
   }
 
   .configurator h2 {
@@ -258,8 +263,8 @@ const { Content } = await render(vertical);
   }
 
   .configurator-embed {
-    max-width: 1100px;
-    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
   }
 
   .configurator-placeholder {
@@ -317,17 +322,9 @@ const { Content } = await render(vertical);
       gap: 2rem;
     }
 
-    .configurator {
-      padding: 3rem 0;
-    }
-
     .configurator h2,
     .configurator > p {
       padding: 0 1rem;
-    }
-
-    .configurator-embed {
-      max-width: 100%;
     }
   }
 </style>
